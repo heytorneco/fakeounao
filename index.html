@@ -7,13 +7,50 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Fake News Checker</h1>
-    <p id="instructions">Responda às perguntas para avaliar se uma notícia pode ser falsa ou verdadeira.</p>
-    <div id="quiz"></div>
-    <div id="result" class="hidden"></div>
-    <button id="restart" class="hidden">Reiniciar Quiz</button>
+  <!-- TELA INICIAL -->
+  <div id="tela-inicial" class="tela">
+    <h1>Bem-vindo ao Fake ou Não?</h1>
+    <p>Aprenda a identificar notícias falsas com nosso quiz e ferramentas.</p>
+    <button onclick="mostrarTela('quiz')">Começar o Quiz</button>
   </div>
+
+  <!-- QUIZ DE RED FLAGS -->
+  <div id="quiz" class="tela" style="display:none;">
+    <h2>Quiz de Red Flags</h2>
+    <div id="perguntas"></div>
+  </div>
+
+  <!-- VERIFICAÇÃO POR LINK -->
+  <div id="link" class="tela" style="display:none;">
+    <h2>Verifique um link</h2>
+    <input type="text" id="linkNoticia" placeholder="Cole o link aqui">
+    <button onclick="verificarLink()">Verificar</button>
+    <p id="resultadoLink"></p>
+    <button onclick="mostrarTela('factChecking')">Plataformas de Fact-Checking</button>
+    <button onclick="mostrarTela('tela-inicial')">Voltar ao Início</button>
+  </div>
+
+  <!-- PLATAFORMAS DE FACT-CHECKING -->
+  <div id="factChecking" class="tela" style="display:none;">
+    <h2>Plataformas de Fact-Checking</h2>
+    <div class="card">
+      <h3>Agência Lupa</h3>
+      <p>Verificação de notícias brasileiras.</p>
+      <a href="https://piaui.folha.uol.com.br/lupa/" target="_blank">Visitar</a>
+    </div>
+    <div class="card">
+      <h3>Aos Fatos</h3>
+      <p>Checagem de notícias e boatos.</p>
+      <a href="https://www.aosfatos.org/" target="_blank">Visitar</a>
+    </div>
+    <div class="card">
+      <h3>E-Farsas</h3>
+      <p>Site especializado em boatos e fake news.</p>
+      <a href="https://www.e-farsas.com/" target="_blank">Visitar</a>
+    </div>
+    <button onclick="mostrarTela('tela-inicial')">Voltar ao Início</button>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>
