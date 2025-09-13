@@ -1,78 +1,78 @@
-const questions = [
-  { text: "O título está todo em caixa alta?", options: [{ text: "Sim", points: 2 }, { text: "Não", points: 0 }] },
-  { text: "A notícia cita fontes confiáveis?", options: [{ text: "Sim", points: 0 }, { text: "Não", points: 2 }] },
-  { text: "O conteúdo tem erros de português evidentes?", options: [{ text: "Sim", points: 1 }, { text: "Não", points: 0 }] },
-  { text: "O site é conhecido ou confiável?", options: [{ text: "Sim", points: 0 }, { text: "Não", points: 2 }] },
-  { text: "O título é sensacionalista ou exagerado?", options: [{ text: "Sim", points: 2 }, { text: "Não", points: 0 }] },
-  { text: "A notícia apresenta datas ou números inconsistentes?", options: [{ text: "Sim", points: 2 }, { text: "Não", points: 0 }] },
-  { text: "Há uso excessivo de adjetivos como 'chocante' ou 'alarmante'?", options: [{ text: "Sim", points: 1 }, { text: "Não", points: 0 }] },
-  { text: "O autor é identificado e confiável?", options: [{ text: "Sim", points: 0 }, { text: "Não", points: 2 }] },
-  { text: "A notícia circula apenas em redes sociais e não em veículos conhecidos?", options: [{ text: "Sim", points: 2 }, { text: "Não", points: 0 }] },
-  { text: "A notícia mistura fatos com opinião de forma confusa?", options: [{ text: "Sim", points: 1 }, { text: "Não", points: 0 }] }
+// Função para trocar de tela
+function mostrarTela(tela) {
+  const telas = document.querySelectorAll('.tela');
+  telas.forEach(t => t.style.display = 'none');
+  document.getElementById(tela).style.display = 'block';
+}
+
+// ----- QUIZ DE RED FLAGS -----
+const redFlags = [
+  {texto: "Título sensacionalista?", pontos: 2},
+  {texto: "Notícia sem fonte confiável?", pontos: 3},
+  {texto: "Erro de ortografia?", pontos: 1},
+  {texto: "Imagem ou vídeo manipulado?", pontos: 2},
+  {texto: "URL suspeita ou clickbait?", pontos: 2},
+  {texto: "Sensacionalismo exagerado no texto?", pontos: 1},
+  {texto: "Notícia sem data?", pontos: 1},
+  {texto: "Texto com muitas maiúsculas?", pontos: 1},
+  {texto: "Compartilhada apenas em redes sociais?", pontos: 1},
+  {texto: "Fonte não conhecida ou duvidosa?", pontos: 3},
 ];
 
-let currentIndex = 0;
-let score = 0;
+let indice = 0;
+let pontosTotais = 0;
 
-const quizDiv = document.getElementById("quiz");
-const resultDiv = document.getElementById("result");
-const restartBtn = document.getElementById("restart");
-
-function showQuestion() {
-  quizDiv.innerHTML = "";
-  const q = questions[currentIndex];
-  const questionEl = document.createElement("h2");
-  questionEl.textContent = q.text;
-  quizDiv.appendChild(questionEl);
-
-  q.options.forEach(opt => {
-    const btn = document.createElement("button");
-    btn.textContent = opt.text;
-    btn.addEventListener("click", () => handleAnswer(opt.points));
-    quizDiv.appendChild(btn);
-  });
-}
-
-function handleAnswer(points) {
-  score += points;
-  currentIndex++;
-  if (currentIndex < questions.length) {
-    showQuestion();
+function mostrarRedFlag() {
+  if(indice < redFlags.length) {
+    const r = redFlags[indice];
+    document.getElementById('perguntas').innerHTML = `
+      <p>${r.texto}</p>
+      <button onclick="responder(true)">Sim</button>
+      <button onclick="responder(false)">Não</button>
+    `;
   } else {
-    showResult();
+    mostrarResultado();
   }
 }
 
-function showResult() {
-  quizDiv.classList.add("hidden");
-  restartBtn.classList.remove("hidden");
-  resultDiv.classList.remove("hidden");
-
-  let message = "";
-  let cssClass = "";
-
-  if (score <= 3) {
-    message = "Provavelmente verdadeira";
-    cssClass = "true";
-  } else if (score <= 7) {
-    message = "Suspeita";
-    cssClass = "suspect";
-  } else {
-    message = "Provavelmente fake news";
-    cssClass = "fake";
+function responder(respostaUsuario) {
+  if(respostaUsuario) {
+    pontosTotais += redFlags[indice].pontos;
   }
-
-  resultDiv.className = cssClass;
-  resultDiv.innerHTML = `<h2>Resultado final:</h2><p>${message}</p><p>Pontuação total: ${score}</p>`;
+  indice++;
+  mostrarRedFlag();
 }
 
-restartBtn.addEventListener("click", () => {
-  currentIndex = 0;
-  score = 0;
-  quizDiv.classList.remove("hidden");
-  resultDiv.classList.add("hidden");
-  restartBtn.classList.add("hidden");
-  showQuestion();
-});
+function mostrarResultado() {
+  let resultado = "";
+  if(pontosTotais <= 2) resultado = "Notícia provavelmente verdadeira";
+  else if(pontosTotais <= 5) resultado = "Atenção: notícia pode ter inconsistências";
+  else resultado = "Notícia provavelmente falsa";
 
-showQuestion();
+  document.getElementById('perguntas').innerHTML = `
+    <p>Seu resultado: <strong>${resultado}</strong></p>
+    <p>Pontuação total: ${pontosTotais}</p>
+    <button onclick="indice=0; pontosTotais=0; mostrarRedFlag()">Refazer Quiz</button>
+    <button onclick="mostrarTela('link')">Ir para verificação por link</button>
+  `;
+}
+
+// Inicializa quiz
+mostrarRedFlag();
+
+// ----- VERIFICAÇÃO POR LINK -----
+function verificarLink() {
+  let url = document.getElementById('linkNoticia').value.toLowerCase();
+  let resultado = document.getElementById('resultadoLink');
+
+  if(url.includes("site-suspeito") || url.includes("clickbait")) {
+    resultado.textContent = "Esta notícia pode ser falsa!";
+    resultado.style.color = "red";
+  } else if(url === "") {
+    resultado.textContent = "Por favor, insira um link.";
+    resultado.style.color = "orange";
+  } else {
+    resultado.textContent = "Não encontramos sinais de fake news.";
+    resultado.style.color = "green";
+  }
+}
