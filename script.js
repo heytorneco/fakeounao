@@ -22,6 +22,7 @@ const redFlags = [
 let indice = 0;
 let pontosTotais = 0;
 
+// Função para mostrar a red flag atual
 function mostrarRedFlag() {
   if(indice < redFlags.length) {
     const r = redFlags[indice];
@@ -35,6 +36,7 @@ function mostrarRedFlag() {
   }
 }
 
+// Função que atualiza a pontuação e passa para a próxima red flag
 function responder(respostaUsuario) {
   if(respostaUsuario) {
     pontosTotais += redFlags[indice].pontos;
@@ -43,6 +45,7 @@ function responder(respostaUsuario) {
   mostrarRedFlag();
 }
 
+// Função que mostra o resultado final do quiz
 function mostrarResultado() {
   let resultado = "";
   if(pontosTotais <= 2) resultado = "Notícia provavelmente verdadeira";
@@ -72,7 +75,4 @@ function verificarLink() {
     resultado.textContent = "Por favor, insira um link.";
     resultado.style.color = "orange";
   } else {
-    resultado.textContent = "Não encontramos sinais de fake news.";
-    resultado.style.color = "green";
-  }
-}
+    result
