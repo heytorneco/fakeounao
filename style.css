@@ -1,49 +1,51 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f7f7f7;
-  padding: 2rem;
+  background-color: #f0f4f8;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
 }
 
-.container {
+.tela {
   max-width: 600px;
-  margin: auto;
-  background-color: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  background-color: #fff;
+  padding: 30px;
+  margin: 50px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   text-align: center;
 }
 
 button {
-  display: block;
-  margin: 0.5rem auto;
-  padding: 0.5rem 1rem;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0077cc;
+  color: white;
   cursor: pointer;
 }
 
-.hidden {
-  display: none;
+button:hover {
+  background-color: #005fa3;
 }
 
-#result {
-  padding: 1rem;
+input[type=text] {
+  padding: 10px;
+  width: 80%;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.card {
+  border: 1px solid #ddd;
   border-radius: 8px;
-  margin-top: 1rem;
-  font-weight: bold;
-  font-size: 1.2rem;
+  padding: 15px;
+  margin: 10px 0;
+  text-align: left;
 }
-
-.true {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.suspect {
-  background-color: #fff3cd;
-  color: #856404;
-}
-
-.fake {
-  background-color: #f8d7da;
-  color: #721c24;
+.card h3 {
+  margin-top: 0;
 }
