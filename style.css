@@ -1,0 +1,49 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  padding: 2rem;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+button {
+  display: block;
+  margin: 0.5rem auto;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+#result {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.true {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.suspect {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.fake {
+  background-color: #f8d7da;
+  color: #721c24;
+}
